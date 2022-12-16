@@ -15,7 +15,11 @@ class UserRepo {
     }
 
     async getAll() {
-        const wallet = await this.WalletModel.findAll()
+        const wallet = await this.WalletModel.findAll({
+            where: {
+                id_user
+            }
+        })
         return wallet
     }
 
