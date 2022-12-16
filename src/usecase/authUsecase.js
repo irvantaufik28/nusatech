@@ -28,7 +28,7 @@ class AuhtUsecase {
             email: user.email,
             token: null
         }
-        let tokenManager = this.tokenManager.generateAccessToken(userValue)
+        let tokenManager = this.tokenManager.generateToken(userValue)
         userValue.token = tokenManager
         result.isSuccess = true;
         result.statusCode= 200;
