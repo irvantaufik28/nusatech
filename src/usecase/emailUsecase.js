@@ -5,20 +5,25 @@ class EmailUsecase {
         this.verificationRepo = verificationRepo;
     }
 
-   static async sendEmail() {
+   async sendEmail() {
         let users = await this.userRepo.getPendingUser()
+
         if (users !== null) {
             for (const user of users) {
-                let userPin = await this.verificationRepo.generatePIN(user.email)
-                await this.emailRepo.sendVerification(users.email, userPin.pin)
-               let newStatus = {
+                
+                let pendingVerification = await this.verificationRepo.getVerificationPendingByEmail(user.email)
+                await this.emailRepo.sendVerification(user.email, pendingVerification.pin)
+               
+                let newStatus = {
                 status: 'REGISTERED'
                }
-               await this.verificationRepo(newStatus, userPin.id)
+               
+               await this.verificationRepo.updateVerification(newStatus, pendingVerification.id)
                await this.userRepo.update(newStatus, user.id)
             }
         }
-
         return
     }
 }
+
+module.exports = EmailUsecase;

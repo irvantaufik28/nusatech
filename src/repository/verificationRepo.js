@@ -41,6 +41,25 @@ class VerificationRepo {
         return pin
     }
 
+    async getVerificationPendingByEmail(email) {
+        let pin = null
+        pin = await this.VerificationModel.findOne({
+            where: {
+                email: {
+                    [Op.eq]: email
+                },
+                status: {
+                    [Op.eq]: "PENDING"
+                }
+            }
+        })
+        if (pin === null) {
+            return null
+        }
+        pin = pin.get()
+        return pin
+    }
+
     async updateVerification(data, id) {
         let result = await this.VerificationModel.update(data, {
             where : {

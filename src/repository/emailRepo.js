@@ -1,4 +1,5 @@
 const nodemailer_transport = require("../libs/nodemailer");
+const emailMessage = require('../internal/constant/emailMessage')
 
 class EmailRepository {
   constructor() {}
@@ -13,11 +14,15 @@ class EmailRepository {
   }
 
   async sendVerification(email, data) {
-    let content = email_message.NOTIF_REGISTRATION;
-    let text = content.text_value.replace("{pin}", data.pin);
-    let html = content.html_value.replace("{pin}", data.pin);
+    console.log(data)
+    console.log(data)
+    console.log(data)
+    console.log(data.pin)
+    let content = emailMessage.PIN
+    let text = content.text_value.replace("{pin}", data);
+    let html = content.html_value.replace("{pin}", data);
 
-    await this.sendEmail(email, text, html);
+    await this.sendEmail('Verification', email, text, html);
   }
  
 }
