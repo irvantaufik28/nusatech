@@ -1,0 +1,30 @@
+{
+  "name": "nusatech",
+  "version": "1.0.0",
+  "description": "technical test backend nusatech",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irvantaufik28/nusatech.git"
+  },
+  "author": "irvan taufik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irvantaufik28/nusatech/issues"
+  },
+  "homepage": "https://github.com/irvantaufik28/nusatech#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2"
+  }
+}
