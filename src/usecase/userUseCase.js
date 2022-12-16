@@ -1,7 +1,7 @@
-class UseUseCase {
+class UseUsecase {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
 }
 
-module.exports = UseUseCase;
+module.exports = UseUsecase;
