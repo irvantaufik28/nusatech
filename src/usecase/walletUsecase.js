@@ -1,7 +1,8 @@
 class WalletUsecase {
-    constructor(walletRepo, userRepo) {
+    constructor(walletRepo, userRepo, currencyRepo) {
         this.walletRepo = walletRepo;
         this.userRepo = userRepo;
+        this.currencyRepo = currencyRepo;
     }
 
     async getAllWalletByUserId(id_user) {
@@ -43,12 +44,28 @@ class WalletUsecase {
 
     async createWallet(walletData) {
         let result = {
-            isSuccess: false,
-            statusCode: 404,
-            reason: '',
+            isSuccess: true,
+            statusCode: 200,
             data: null,
         }
-        const wallet = await this.createWallet(walletData)
+        const wallet = await this.walletRepo.createWallet(walletData)
+
+        const currencyValue = {
+            id_wallet: wallet.id
+        }
+        const currency = await this.currencyRepo.createCurrency(currencyValue)
+
+        const oldWallet = await this.walletRepo.getbyId(wallet.id)
+
+        const walletValue = {
+            id_currency: currency.id
+        }
+        await this.walletRepo.updateWallet(walletValue, oldWallet.id)
+
+        const newWallet = await this.walletRepo.getbyId(oldWallet.id)
+
+        result.data = newWallet;
+        return result
     }
 }
 
