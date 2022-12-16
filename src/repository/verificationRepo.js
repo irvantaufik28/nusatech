@@ -7,7 +7,7 @@ class VerificationRepo {
         this.VerificationModel = Verification;
     }
 
-    async generateOTP(email) {
+    async generatePIN(email) {
         let pin_obj = {
             email: email,
             pin: func.generateRandomNumber(6),
@@ -23,8 +23,8 @@ class VerificationRepo {
     }
 
     async getVerificationByEmail(email) {
-        let otp = null
-        otp = await this.VerificationModel.findOne({
+        let pin = null
+        pin = await this.VerificationModel.findOne({
             where: {
                 email: {
                     [Op.eq]: email
@@ -34,11 +34,20 @@ class VerificationRepo {
                 }
             }
         })
-        if (otp === null) {
+        if (pin === null) {
             return null
         }
-        otp = otp.get()
-        return otp
+        pin = pin.get()
+        return pin
+    }
+
+    async updateVerification(data, id) {
+        let result = await this.VerificationModel.update(data, {
+            where : {
+                id,
+            }
+        })
+        return result
     }
 
 }

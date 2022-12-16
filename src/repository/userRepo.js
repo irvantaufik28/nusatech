@@ -37,6 +37,15 @@ class UserRepo {
         return user;
     }
 
+    async update(data, id) {
+        const user = await this.UserModel.update(data, {
+            where: {
+                id
+            }
+        })
+        return user
+    }
+
 }
 
 module.exports = UserRepo;

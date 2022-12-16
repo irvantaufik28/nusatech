@@ -11,6 +11,7 @@ const userRepo = require('./repository/userRepo');
 const authRepo = require('./repository/authRepo');
 const walletRepo = require('./repository/walletRepo');
 const currencyRepo = require('./repository/currrencyRepo')
+const verificationRepo = require('./repository/verificationRepo')
 
 const userUsecase = require('./usecase/userUsecase');
 const authUsecase = require('./usecase/authuseCase');
@@ -20,7 +21,7 @@ const authRouter = require('./router/authRoutes');
 const walletRouter = require('./router/walletRoutes');
 
 const userUC = new userUsecase(new userRepo())
-const authUC = new authUsecase(new authRepo(), new userRepo(), bcrypt, tokenManager)
+const authUC = new authUsecase(new authRepo(), new userRepo(),new verificationRepo(), bcrypt, tokenManager)
 const walletUC = new walletUsecase(new walletRepo(), new currencyRepo())
 
 app.use((req, res, next)=> {
@@ -34,6 +35,10 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/', authRouter)
 app.use('/', walletRouter)
+
+cron.schedule('* ', () => {
+    console.log('running a task every minute');
+  });
 
 app.use(serverError);
 

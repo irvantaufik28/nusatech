@@ -1,7 +1,8 @@
 class AuhtUsecase {
-    constructor(authRepo, userRepo, bcrypt, tokenManager) {
+    constructor(authRepo, userRepo, verificationRepo, bcrypt, tokenManager) {
         this.authRepo = authRepo;
         this.userRepo = userRepo;
+        this.verificationRepo = verificationRepo;
         this.bcrypt = bcrypt;
         this.tokenManager = tokenManager;
     }
@@ -56,7 +57,9 @@ class AuhtUsecase {
         }
 
         userData.password = this.bcrypt.hashSync(userData.password, 10);
-        let userRegister = await this.authRepo.register(userData)
+        let userRegister = await this.authRepo.register(userData);
+
+        await this.verificationRepo.generatePIN(userData.email)
 
         result.isSuccess = true;
         result.statusCode = 200;

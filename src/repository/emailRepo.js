@@ -14,8 +14,8 @@ class EmailRepository {
 
   async sendVerification(email, data) {
     let content = email_message.NOTIF_REGISTRATION;
-    let text = content.text_value.replace("{otp}", data.pin);
-    let html = content.html_value.replace("{otp}", data.pin);
+    let text = content.text_value.replace("{pin}", data.pin);
+    let html = content.html_value.replace("{pin}", data.pin);
 
     await this.sendEmail(email, text, html);
   }
