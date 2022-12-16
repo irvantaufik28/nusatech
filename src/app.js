@@ -40,9 +40,9 @@ app.use(express.urlencoded({extended: false}))
 app.use('/', authRouter)
 app.use('/', walletRouter)
 
-emailUC.sendEmail()
-cron.schedule('*/1 * * * *', () => {
-    console.log('checking pending user');
+cron.schedule('*/'+'10 * * * * *', () => {
+  emailUC.sendEmail()
+  console.log('checking pending user...');
   });
 
 app.use(serverError);
