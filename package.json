@@ -4,7 +4,7 @@
   "description": "technical test backend nusatech",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start-dev": "nodemon src/server.js"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jest": "^29.3.1",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4"
   },
