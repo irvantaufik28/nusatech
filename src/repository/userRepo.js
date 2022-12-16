@@ -14,6 +14,15 @@ class UserRepo {
         return user
     }
 
+    async getByEmail(email) {
+        const user = await this.UserModel.findOne({
+            where: {
+                email
+            }
+        })
+        return user
+    }
+
     async getAll() {
         const user = await this.UserModel.findAll()
         return user

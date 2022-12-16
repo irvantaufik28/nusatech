@@ -39,7 +39,7 @@ module.exports = {
         id_user: req.user.id,
         amount: req.body.amount
       }
-      let result = await req.walletUC.getAllWalletByUserId(dataWallet);
+      let result = await req.walletUC.createWallet(dataWallet);
       if (!result.isSuccess) {
         return res
           .status(result.statusCode)

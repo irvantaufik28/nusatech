@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
 const tokenManager = require('./helper/tokenManager')
+const serverError = require('./middleware/serverError')
 
 
 const userRepo = require('./repository/userRepo');
@@ -33,6 +34,9 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/', authRouter)
 app.use('/', walletRouter)
+
+app.use(serverError);
+
 
 
 module.exports = app;

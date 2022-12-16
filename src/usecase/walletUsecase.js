@@ -1,7 +1,6 @@
 class WalletUsecase {
-    constructor(walletRepo, userRepo, currencyRepo) {
+    constructor(walletRepo, currencyRepo) {
         this.walletRepo = walletRepo;
-        this.userRepo = userRepo;
         this.currencyRepo = currencyRepo;
     }
 
@@ -55,14 +54,14 @@ class WalletUsecase {
         }
         const currency = await this.currencyRepo.createCurrency(currencyValue)
 
-        const oldWallet = await this.walletRepo.getbyId(wallet.id)
+        const oldWallet = await this.walletRepo.getById(wallet.id)
 
         const walletValue = {
             id_currency: currency.id
         }
         await this.walletRepo.updateWallet(walletValue, oldWallet.id)
 
-        const newWallet = await this.walletRepo.getbyId(oldWallet.id)
+        const newWallet = await this.walletRepo.getById(oldWallet.id)
 
         result.data = newWallet;
         return result

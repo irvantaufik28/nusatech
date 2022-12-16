@@ -1,6 +1,6 @@
 const { Wallet } = require('../models')
 
-class UserRepo {
+class WalletRepo {
     constructor() {
         this.WalletModel = Wallet;
     }
@@ -14,7 +14,7 @@ class UserRepo {
         return wallet
     }
 
-    async getAll() {
+    async getAll(id_user) {
         const wallet = await this.WalletModel.findAll({
             where: {
                 id_user
@@ -39,4 +39,4 @@ class UserRepo {
 
 }
 
-module.exports = UserRepo;
+module.exports = WalletRepo;

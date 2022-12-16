@@ -35,6 +35,34 @@ class AuhtUsecase {
         result.data = userValue;
         return result;
     }
+
+    async register(userData) {
+        let result = {
+          isSuccess: false,
+          reason: "",
+          statusCode: 400,
+          data: null,
+          token: null,
+        };
+        
+        if (userData.password !== userData.confirmPassword) {
+          result.reason = "password and confirm password not match";
+          return result;
+        }
+        let user = await this.userRepo.getByEmail(userData.email)
+        if (user !== null) {
+          result.reason = "username or email not aviable";
+          return result;
+        }
+
+        userData.password = this.bcrypt.hashSync(userData.password, 10);
+        let userRegister = await this.authRepo.register(userData)
+
+        result.isSuccess = true;
+        result.statusCode = 200;
+        result.data = userRegister
+        return result;
+      }
 }
 
 module.exports = AuhtUsecase;
