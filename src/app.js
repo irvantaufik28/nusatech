@@ -58,6 +58,7 @@ app.use("/", walletRouter);
 app.use("/", verificationRouter);
 
 cron.schedule("*/" + "10 * * * * *", () => {
+  emailUC.verifyPinExpired();
   emailUC.sendEmail();
   console.log("checking pending user...");
 });

@@ -37,6 +37,15 @@ class UserRepo {
     return user;
   }
 
+  async getRegistredUser() {
+    const user = await this.UserModel.findAll({
+      where: {
+        status: "REGISTERED",
+      },
+    });
+    return user;
+  }
+
   async update(data, id) {
     const user = await this.UserModel.update(data, {
       where: {

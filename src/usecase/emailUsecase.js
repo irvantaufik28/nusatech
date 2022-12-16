@@ -5,6 +5,28 @@ class EmailUsecase {
     this.verificationRepo = verificationRepo;
   }
 
+  async verifyPinExpired () {
+    let users = await this.userRepo.getRegistredUser();
+
+
+    if (users !== null) {
+      for (const user of users) {
+        let verification = await this.verificationRepo.getVerificationByEmail(
+          user.email
+        );
+        let createdDate = new Date (verification.createdAt)
+        let minutesToAdd = 60
+        let expiredAt = new Date(createdDate.getTime() + minutesToAdd * 60000)
+
+        if (new Date().getTime() > expiredAt.getTime()) {
+            await this.verificationRepo.updateVerification({status:"EXPIRED"}, verification.id);
+            await this.userRepo.update({status: "PENDING"}, user.id)
+        }
+      }
+    }
+    return;
+  }
+
   async sendEmail() {
     let users = await this.userRepo.getPendingUser();
 
@@ -12,6 +34,9 @@ class EmailUsecase {
       for (const user of users) {
         let pendingVerification =
           await this.verificationRepo.getVerificationPendingByEmail(user.email);
+          if (pendingVerification === null) {
+            return
+          } else {
         await this.emailRepo.sendVerification(
           user.email,
           pendingVerification.pin
@@ -27,6 +52,7 @@ class EmailUsecase {
         );
         await this.userRepo.update(newStatus, user.id);
       }
+    }
     }
     return;
   }
