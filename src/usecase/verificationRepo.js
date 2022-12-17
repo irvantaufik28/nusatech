@@ -66,6 +66,27 @@ class verificationUseCase {
     result.statusCode = 200;
     return result;
   }
+
+  async verificationEmail(email) {
+    let result = {
+      isSuccess: false,
+      statusCode: 404,
+      reason: "",
+      data: null,
+    };
+
+    const account = await this.userRepo.getByEmail(email);
+    if (account === null) {
+      result.reason = "account not found";
+      return result;
+    }
+
+    await this.verificationRepo.generatePIN(email);
+
+    result.isSuccess = true;
+    result.statusCode = 200;
+    return result;
+  }
 }
 
 module.exports = verificationUseCase;
