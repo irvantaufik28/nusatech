@@ -5,6 +5,7 @@ const app = express();
 const bcrypt = require("bcrypt");
 const tokenManager = require("./helper/tokenManager");
 const cron = require("node-cron");
+const swaggerUi = require('swagger-ui-express');
 const serverError = require("./middleware/serverError");
 
 const userRepo = require("./repository/userRepo");
@@ -68,5 +69,14 @@ cron.schedule("*/" + "10 * * * * *", () => {
 });
 
 app.use(serverError);
+
+
+const swaggerDocument = require('./docs/docs.json');
+
+app.use(
+  '/docs',
+  swaggerUi.serveFiles(swaggerDocument),
+  swaggerUi.setup(swaggerDocument),
+);
 
 module.exports = app;

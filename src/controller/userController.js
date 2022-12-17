@@ -2,6 +2,9 @@ const resData = require("../helper/response");
 
 module.exports = {
   updateEmail: async (req, res, next) => {
+     /*
+      #swagger.tags = ['user']
+    */
     try {
       let id = req.user.id;
       let data = {
@@ -21,6 +24,9 @@ module.exports = {
   },
 
   getUserById: async (req, res, next) => {
+       /*
+      #swagger.tags = ['user']
+    */
     try {
       let id = req.user.id;
       let result = await req.userUC.getUserById(id);

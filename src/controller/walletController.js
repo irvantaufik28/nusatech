@@ -2,6 +2,9 @@ const resData = require("../helper/response");
 
 module.exports = {
   getWalletById: async (req, res, next) => {
+    /*
+      #swagger.tags = ['wallet']
+    */
     try {
       const id = req.param.id;
       const id_user = req.user.id;
@@ -18,6 +21,9 @@ module.exports = {
   },
 
   getAllWalletByUserId: async (req, res, next) => {
+    /*
+      #swagger.tags = ['wallet']
+    */
     try {
       const id_user = req.user.id;
       let result = await req.walletUC.getAllWalletByUserId(id_user);
@@ -33,6 +39,9 @@ module.exports = {
   },
 
   createWallet: async (req, res, next) => {
+    /*
+      #swagger.tags = ['wallet']
+    */
     try {
       let dataWallet = {
         id_currency: req.body.id_currency,
