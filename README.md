@@ -4,7 +4,7 @@
 
 Installation project - manual
 
-- clone project `git clone https://github.com/irvantaufik28/backend-test-case.git`
+- clone project `git clone https://github.com/irvantaufik28/nusatech.git`
 - add node modules `npm install`
 - rename file .env.example to .env
 - configuration db in file .env
