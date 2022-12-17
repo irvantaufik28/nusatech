@@ -25,7 +25,7 @@ class WalletUsecase {
             data: null,
         }
 
-        const wallet = await this.walletRepo.getbyId(id)
+        const wallet = await this.walletRepo.getById(id)
         if ( wallet === null ) {
             result.reason = 'wallet not found';
             return result;

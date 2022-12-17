@@ -6,7 +6,7 @@ module.exports = {
       #swagger.tags = ['wallet']
     */
     try {
-      const id = req.param.id;
+      const id = req.params.id;
       const id_user = req.user.id;
       let result = await req.walletUC.getWalletById(id_user, id);
       if (!result.isSuccess) {

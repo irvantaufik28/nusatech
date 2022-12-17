@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const authController = require('../controller/walletController')
+const walletController = require('../controller/walletController')
 const { authorized } = require('../middleware/jwt')
 
-router.get('/wallet', authorized, authController.getAllWalletByUserId)
-router.get('/wallet/:id', authorized, authController.getWalletById)
-router.post('/wallet',authorized, authController.createWallet)
+router.get('/wallet', authorized, walletController.getAllWalletByUserId)
+router.get('/wallet/:id', authorized, walletController.getWalletById)
+router.post('/wallet',authorized, walletController.createWallet)
 
 module.exports = router;
