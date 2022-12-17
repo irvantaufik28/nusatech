@@ -23,8 +23,10 @@ const verificationUsecase = require("./usecase/verificationRepo");
 const authRouter = require("./router/authRoutes");
 const walletRouter = require("./router/walletRoutes");
 const verificationRouter = require("./router/verificationRoutes");
+const userRouter = require("./router/userRoutes")
 
-const userUC = new userUsecase(new userRepo());
+
+const userUC = new userUsecase(new userRepo(), new verificationRepo(), new walletRepo(), bcrypt)
 const authUC = new authUsecase(
   new authRepo(),
   new userRepo(),
@@ -43,6 +45,7 @@ const verificationUC = new verificationUsecase(
   new userRepo()
 );
 
+
 app.use((req, res, next) => {
   req.userUC = userUC;
   req.authUC = authUC;
@@ -56,6 +59,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", authRouter);
 app.use("/", walletRouter);
 app.use("/", verificationRouter);
+app.use("/", userRouter);
 
 cron.schedule("*/" + "10 * * * * *", () => {
   emailUC.verifyPinExpired();
